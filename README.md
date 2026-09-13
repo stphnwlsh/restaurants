@@ -17,8 +17,20 @@ Savannah, Georgia's Historic District — ten each for **Breakfast**, **Lunch**,
 | **Tags** | Practical flags such as Cash only, Rooftop, Dress code, Patio, Tasting menu |
 | **Highlights** | What the place is known for |
 | **Address** | Opens a Google Maps search for the venue |
-| **Map** | An embedded Google map, expanded on demand (loaded lazily, so the page stays fast) |
+| **Map** | An embedded Google map, expanded on demand (loaded lazily, so the page stays fast). With a hotel set it becomes a **walking route from the hotel to the venue** |
+| **Walk from hotel** | Appears once a hotel is set — opens turn-by-turn walking directions, handing off to the Google Maps app on a phone |
 | **Menu** | Opens a web search for the venue's current menu |
+
+## Where you're staying
+
+The bar under the header takes a hotel or address. Set it and every card's map
+turns into a walking route from that address to the venue, and a "Walk from
+hotel" link appears on each card. It's remembered per browser via
+`localStorage`, so it survives a reload; **Clear** puts the maps back to a
+single pin on the venue.
+
+The routes are Google Maps directions embeds keyed off the address text — no
+API key, no geocoding, nothing to configure.
 
 ## Features
 

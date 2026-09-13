@@ -37,6 +37,8 @@ html[data-theme="dark"]{
   --shadow-lift:0 2px 4px rgba(0,0,0,.45), 0 18px 36px -14px rgba(0,0,0,.7);
 }
 *,*::before,*::after{box-sizing:border-box}
+/* class display rules outrank the UA's [hidden] rule — keep hidden meaning hidden */
+[hidden]{display:none !important}
 html{-webkit-text-size-adjust:100%}
 body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
 .wrap{max-width:1200px;margin:0 auto;padding:0 20px}
@@ -59,6 +61,28 @@ h1 em{font-style:italic;color:#e9c77f}
 .hero-stats{display:flex;flex-wrap:wrap;gap:10px 26px;margin:26px 0 0;padding:0;list-style:none}
 .hero-stats li{font-size:.82rem;color:#bccdbf;display:flex;align-items:baseline;gap:7px}
 .hero-stats b{font-family:var(--serif);font-size:1.35rem;color:#fff;font-weight:600}
+
+/* ---------- Hotel bar ---------- */
+.hotelbar{background:var(--card);border-bottom:1px solid var(--line)}
+.hotelbar-inner{display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px;padding-block:14px}
+.hotelbar .pin{width:18px;height:18px;stroke:var(--brass);flex:0 0 auto}
+#hotelForm{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:0}
+#hotelForm label{font-size:.8rem;font-weight:600;color:var(--ink-2);white-space:nowrap}
+#hotelInput{font:inherit;font-size:.87rem;color:var(--ink);background:var(--paper);
+  border:1px solid var(--line);border-radius:9px;padding:8px 12px;min-width:min(280px,60vw);
+  transition:border-color .2s ease,box-shadow .2s ease}
+#hotelInput::placeholder{color:var(--ink-3)}
+#hotelInput:focus{outline:none;border-color:var(--brass);
+  box-shadow:0 0 0 3px color-mix(in srgb,var(--brass) 18%,transparent)}
+.hotelbar button{font:inherit;font-size:.82rem;font-weight:600;cursor:pointer;border-radius:9px;
+  padding:8px 14px;border:1px solid var(--moss);background:var(--moss);color:#fff;
+  transition:opacity .2s ease}
+html[data-theme="dark"] .hotelbar button{color:#0f1411}
+.hotelbar button:hover{opacity:.88}
+.hotelbar button#hotelClear{background:transparent;color:var(--ink-2);border-color:var(--line)}
+.hotelbar button:focus-visible,#hotelInput:focus-visible{outline:2px solid var(--brass);outline-offset:2px}
+#hotelState{margin:0;font-size:.8rem;color:var(--ink-3)}
+#hotelState b{color:var(--ink-2);font-weight:600}
 
 /* ---------- Tabs ---------- */
 .tabbar{position:sticky;top:0;z-index:20;background:var(--paper);
@@ -165,6 +189,8 @@ main{padding:32px 0 72px}
 .act svg{width:14px;height:14px;stroke:currentColor;flex:0 0 auto}
 .act:hover{color:var(--ink);background:var(--moss-soft);
   border-color:color-mix(in srgb,var(--moss) 30%,var(--line))}
+.act.js-walk{color:var(--brass);border-color:color-mix(in srgb,var(--brass) 40%,var(--line))}
+.act.js-walk:hover{background:var(--brass-soft);border-color:var(--brass);color:var(--brass)}
 .act[aria-expanded="true"]{color:#fff;background:var(--moss);border-color:var(--moss)}
 html[data-theme="dark"] .act[aria-expanded="true"]{color:#0f1411}
 .act:focus-visible,.addr:focus-visible{outline:2px solid var(--brass);outline-offset:2px;border-radius:9px}
@@ -204,6 +230,19 @@ footer p{margin:0 0 6px;max-width:80ch}
     </ul>
   </div>
 </header>
+
+<div class="hotelbar">
+  <div class="wrap hotelbar-inner">
+    <svg class="pin" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+    <form id="hotelForm" autocomplete="off">
+      <label for="hotelInput">Staying at</label>
+      <input id="hotelInput" type="text" placeholder="Your hotel, e.g. The Marshall House, Savannah">
+      <button type="submit">Set</button>
+      <button type="button" id="hotelClear" hidden>Clear</button>
+    </form>
+    <p id="hotelState"></p>
+  </div>
+</div>
 
 <nav class="tabbar" aria-label="Categories">
   <div class="tabs" role="tablist" id="tabs"></div>
@@ -317,7 +356,13 @@ const esc = s => String(s).replace(/[&<>"']/g, c =>
 const q = spot => encodeURIComponent(spot.name + ", " + spot.address);
 const mapsUrl  = s => "https://www.google.com/maps/search/?api=1&query=" + q(s);
 const menuUrl  = s => "https://www.google.com/search?q=" + encodeURIComponent(s.name + " " + s.address + " menu");
-const embedUrl = s => "https://maps.google.com/maps?q=" + q(s) + "&z=16&output=embed";
+/* With a hotel set, every embed becomes a route from it; without, a single pin. */
+const embedUrl = (enc, from) => from
+  ? "https://maps.google.com/maps?saddr=" + encodeURIComponent(from) +
+    "&daddr=" + enc + "&output=embed"
+  : "https://maps.google.com/maps?q=" + enc + "&z=16&output=embed";
+const walkUrl = (enc, from) => "https://www.google.com/maps/dir/?api=1&origin=" +
+  encodeURIComponent(from) + "&destination=" + enc + "&travelmode=walking";
 
 function priceChip(price) {
   const p = PRICE[price];
@@ -356,9 +401,12 @@ function card(spot, i) {
 
     <div class="actions">
       <button class="act js-map" type="button" aria-expanded="false"
-              data-src="${embedUrl(spot)}" data-name="${esc(spot.name)}">
+              data-q="${q(spot)}" data-name="${esc(spot.name)}">
         ${ICON.map}Show map
       </button>
+      <a class="act js-walk" data-q="${q(spot)}" target="_blank" rel="noopener noreferrer" hidden>
+        ${ICON.walk}Walk from hotel
+      </a>
       <a class="act" href="${menuUrl(spot)}" target="_blank" rel="noopener noreferrer">
         ${ICON.menu}Menu
       </a>
@@ -435,24 +483,32 @@ tabsEl.addEventListener("keydown", e => {
 });
 
 /* --- lazy map embeds --- */
+let hotel = "";
+
+const mapLabel = open => open ? "Hide map" : (hotel ? "Route from hotel" : "Show map");
+const setMapBtn = (btn, open) => { btn.innerHTML = ICON.map + mapLabel(open); };
+
+function closeMap(btn, box) {
+  btn.setAttribute("aria-expanded", "false");
+  setMapBtn(btn, false);
+  box.classList.remove("is-open");
+  setTimeout(() => { if (btn.getAttribute("aria-expanded") === "false") box.hidden = true; }, 340);
+}
+
 panelsEl.addEventListener("click", e => {
   const btn = e.target.closest(".js-map");
   if (!btn) return;
   const box = btn.closest(".card").querySelector(".map");
-  const open = btn.getAttribute("aria-expanded") === "true";
 
-  if (open) {
-    btn.setAttribute("aria-expanded", "false");
-    btn.innerHTML = ICON.map + "Show map";
-    box.classList.remove("is-open");
-    setTimeout(() => { if (btn.getAttribute("aria-expanded") === "false") box.hidden = true; }, 340);
-    return;
-  }
+  if (btn.getAttribute("aria-expanded") === "true") { closeMap(btn, box); return; }
+
   if (!box.firstChild) {
     const frame = document.createElement("iframe");
-    frame.src = btn.dataset.src;
+    frame.src = embedUrl(btn.dataset.q, hotel);
     frame.loading = "lazy";
-    frame.title = "Map of " + btn.dataset.name;
+    frame.title = hotel
+      ? "Route from " + hotel + " to " + btn.dataset.name
+      : "Map of " + btn.dataset.name;
     frame.referrerPolicy = "no-referrer-when-downgrade";
     frame.setAttribute("allowfullscreen", "");
     box.appendChild(frame);
@@ -460,7 +516,47 @@ panelsEl.addEventListener("click", e => {
   box.hidden = false;
   requestAnimationFrame(() => box.classList.add("is-open"));
   btn.setAttribute("aria-expanded", "true");
-  btn.innerHTML = ICON.map + "Hide map";
+  setMapBtn(btn, true);
+});
+
+/* --- where you're staying: drives every route on the page --- */
+const hotelForm = document.getElementById("hotelForm");
+const hotelInput = document.getElementById("hotelInput");
+const hotelClear = document.getElementById("hotelClear");
+const hotelState = document.getElementById("hotelState");
+
+function applyHotel() {
+  // Any open map was built against the previous origin, so drop it and rebuild on demand.
+  panelsEl.querySelectorAll(".js-map").forEach(btn => {
+    const box = btn.closest(".card").querySelector(".map");
+    box.classList.remove("is-open");
+    box.hidden = true;
+    box.innerHTML = "";
+    btn.setAttribute("aria-expanded", "false");
+    setMapBtn(btn, false);
+  });
+  panelsEl.querySelectorAll(".js-walk").forEach(a => {
+    a.hidden = !hotel;
+    if (hotel) a.href = walkUrl(a.dataset.q, hotel);
+  });
+  hotelInput.value = hotel;
+  hotelClear.hidden = !hotel;
+  hotelState.innerHTML = hotel
+    ? `Maps show the walking route from <b>${esc(hotel)}</b>.`
+    : "Add where you're staying and every map becomes a route from your door.";
+}
+
+hotelForm.addEventListener("submit", e => {
+  e.preventDefault();
+  hotel = hotelInput.value.trim();
+  store.set("hotel", hotel);
+  applyHotel();
+});
+hotelClear.addEventListener("click", () => {
+  hotel = "";
+  store.set("hotel", "");
+  applyHotel();
+  hotelInput.focus();
 });
 
 /* --- theme --- */
@@ -483,6 +579,9 @@ themeBtn.addEventListener("click", () => {
   paint(next);
   store.set("theme", next);
 });
+
+hotel = store.get("hotel") || "";
+applyHotel();
 
 /* --- deep link --- */
 const initial = location.hash.slice(1);
