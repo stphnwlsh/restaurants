@@ -4,7 +4,7 @@ An interactive, single-page guide to forty hand-picked places to eat and drink i
 Savannah, Georgia's Historic District — ten each for **Breakfast**, **Lunch**,
 **Dinner** and **Drinks**.
 
-**Live site:** https://stphnwlsh.github.io/savannah-food-guide/
+**Live site:** https://stphnwlsh.github.io/restaurants/
 
 ## What's on each card
 
