@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Savannah Food Guide — Historic District Eats &amp; Drinks</title>
+<meta name="description" content="A curated guide to 40 breakfast, lunch, dinner and drinks spots in Savannah's Historic District — cuisine, price, reservation guidance, menus and maps.">
+<meta name="color-scheme" content="light dark">
+<meta property="og:title" content="Savannah Food Guide">
+<meta property="og:description" content="The best breakfast, lunch, dinner and drinks in Savannah's Historic District.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%A6%90%3C/text%3E%3C/svg%3E">
+<style>
+:root{
+  --moss:#2f4a3c; --moss-soft:#e6ede7;
+  --brass:#a9762a; --brass-soft:#f5ead4;
+  --paper:#faf7f1; --card:#ffffff; --line:#e4ded1; --line-2:#efeae0;
+  --ink:#1f2621; --ink-2:#54605a; --ink-3:#8a938d;
+  --ok:#2f6b4f; --ok-soft:#e3f0e7;
+  --warn:#8a5a12; --warn-soft:#fbeed3;
+  --hot:#8f3427; --hot-soft:#fae3de;
+  --shadow:0 1px 2px rgba(31,38,33,.05), 0 8px 24px -12px rgba(31,38,33,.18);
+  --shadow-lift:0 2px 4px rgba(31,38,33,.06), 0 18px 36px -14px rgba(31,38,33,.26);
+  --radius:16px;
+  --serif:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
+  --sans:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+}
+html[data-theme="dark"]{
+  --moss:#8fc0a4; --moss-soft:#1c2620;
+  --brass:#e3b869; --brass-soft:#2c2517;
+  --paper:#0f1411; --card:#171f1a; --line:#28322c; --line-2:#222b25;
+  --ink:#eaf0ea; --ink-2:#a9b5ad; --ink-3:#7c8880;
+  --ok:#7fc79c; --ok-soft:#16281d;
+  --warn:#e0b264; --warn-soft:#2b2214;
+  --hot:#e79485; --hot-soft:#2d1a16;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -12px rgba(0,0,0,.6);
+  --shadow-lift:0 2px 4px rgba(0,0,0,.45), 0 18px 36px -14px rgba(0,0,0,.7);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1200px;margin:0 auto;padding:0 20px}
+
+/* ---------- Hero ---------- */
+.hero{position:relative;overflow:hidden;color:#f6f2e9;
+  background:radial-gradient(120% 90% at 12% 0%, rgba(215,168,78,.3) 0%, rgba(215,168,78,0) 55%),
+             linear-gradient(160deg,#35513f 0%,#223528 58%,#1a2a20 100%)}
+.hero::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.5;
+  background-image:radial-gradient(rgba(255,255,255,.07) 1px,transparent 1px);background-size:22px 22px}
+.hero-inner{position:relative;padding:56px 20px 40px;max-width:1200px;margin:0 auto}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:.72rem;letter-spacing:.18em;
+  text-transform:uppercase;color:#e9d3a4;border:1px solid rgba(233,211,164,.35);
+  padding:5px 12px;border-radius:999px;margin:0 0 18px}
+.eyebrow::before{content:"";width:5px;height:5px;border-radius:50%;background:#e9d3a4}
+h1{font-family:var(--serif);font-weight:600;letter-spacing:-.02em;
+  font-size:clamp(2.1rem,6.2vw,3.9rem);line-height:1.04;margin:0 0 14px}
+h1 em{font-style:italic;color:#e9c77f}
+.lede{margin:0;max-width:58ch;color:#d7e0d6;font-size:clamp(.98rem,2.1vw,1.12rem)}
+.hero-stats{display:flex;flex-wrap:wrap;gap:10px 26px;margin:26px 0 0;padding:0;list-style:none}
+.hero-stats li{font-size:.82rem;color:#bccdbf;display:flex;align-items:baseline;gap:7px}
+.hero-stats b{font-family:var(--serif);font-size:1.35rem;color:#fff;font-weight:600}
+
+/* ---------- Tabs ---------- */
+.tabbar{position:sticky;top:0;z-index:20;background:var(--paper);
+  border-bottom:1px solid var(--line)}
+@supports (backdrop-filter:blur(8px)){
+  .tabbar{background:color-mix(in srgb,var(--paper) 86%,transparent);backdrop-filter:saturate(160%) blur(12px)}
+}
+.tabs{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding:10px 20px;max-width:1200px;margin:0 auto}
+.tabs::-webkit-scrollbar{display:none}
+.tab{flex:0 0 auto;display:inline-flex;align-items:center;gap:8px;font:inherit;font-size:.93rem;
+  font-weight:600;color:var(--ink-2);background:transparent;border:1px solid transparent;
+  border-radius:999px;padding:9px 18px;cursor:pointer;white-space:nowrap;
+  transition:background .22s ease,color .22s ease,border-color .22s ease}
+.tab:hover{color:var(--ink);background:var(--moss-soft)}
+.tab:focus-visible{outline:2px solid var(--brass);outline-offset:2px}
+.tab[aria-selected="true"]{color:#fff;background:var(--moss);border-color:var(--moss);
+  box-shadow:0 6px 16px -8px rgba(47,74,60,.7)}
+html[data-theme="dark"] .tab[aria-selected="true"]{color:#0f1411}
+.tab .ico{font-size:1.02rem;line-height:1}
+.tab .n{font-size:.72rem;font-weight:700;padding:1px 7px;border-radius:999px;background:var(--line);color:var(--ink-2)}
+.tab[aria-selected="true"] .n{background:rgba(255,255,255,.22);color:#fff}
+html[data-theme="dark"] .tab[aria-selected="true"] .n{background:rgba(0,0,0,.2);color:#0f1411}
+
+/* ---------- Panels ---------- */
+main{padding:32px 0 72px}
+.panel{display:none}
+.panel.is-active{display:block;animation:fade .3s ease both}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+.panel-head{margin:0 0 8px}
+.panel-head h2{font-family:var(--serif);font-weight:600;letter-spacing:-.01em;
+  font-size:clamp(1.5rem,4vw,2rem);margin:0 0 4px}
+.panel-head p{margin:0;color:var(--ink-2);font-size:.95rem}
+.legend{display:flex;flex-wrap:wrap;gap:8px 18px;margin:14px 0 24px;padding:12px 14px;
+  border:1px solid var(--line);border-radius:12px;background:var(--card);
+  font-size:.78rem;color:var(--ink-3)}
+.legend b{color:var(--ink-2);font-weight:600}
+.grid{display:grid;gap:18px;list-style:none;margin:0;padding:0;
+  grid-template-columns:repeat(auto-fill,minmax(320px,1fr))}
+.panel.is-active .card{animation:rise .44s cubic-bezier(.22,.7,.3,1) both}
+@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){
+  .panel.is-active,.panel.is-active .card{animation:none}
+  *{transition-duration:.01ms !important}
+}
+
+/* ---------- Card ---------- */
+.card{position:relative;display:flex;flex-direction:column;background:var(--card);
+  border:1px solid var(--line);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);
+  transition:transform .26s cubic-bezier(.22,.7,.3,1),box-shadow .26s ease,border-color .26s ease}
+.card::before{content:"";position:absolute;left:0;top:18px;bottom:18px;width:3px;
+  border-radius:0 3px 3px 0;background:var(--brass);opacity:0;transition:opacity .26s ease}
+.card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lift);
+  border-color:color-mix(in srgb,var(--brass) 40%,var(--line))}
+.card:hover::before{opacity:1}
+.card-top{display:flex;align-items:flex-start;gap:13px}
+.rank{flex:0 0 auto;width:36px;height:36px;border-radius:11px;display:grid;place-items:center;
+  font-family:var(--serif);font-size:1.02rem;font-weight:700;color:var(--moss);
+  background:var(--moss-soft);border:1px solid color-mix(in srgb,var(--moss) 22%,transparent)}
+.card.is-top .rank{color:var(--brass);background:var(--brass-soft);
+  border-color:color-mix(in srgb,var(--brass) 40%,transparent)}
+.badge{display:inline-flex;align-items:center;gap:5px;font-size:.66rem;font-weight:700;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3)}
+.card.is-top .badge{color:var(--brass)}
+.badge .dot{width:4px;height:4px;border-radius:50%;background:currentColor}
+.name{font-family:var(--serif);font-size:1.19rem;font-weight:600;line-height:1.25;
+  letter-spacing:-.01em;margin:3px 0 0}
+.cuisine{margin:5px 0 0;font-size:.8rem;color:var(--ink-2);letter-spacing:.01em}
+
+.meta{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:14px 0 0}
+.chip{display:inline-flex;align-items:center;gap:6px;font-size:.72rem;font-weight:600;
+  padding:4px 9px;border-radius:999px;border:1px solid transparent;white-space:nowrap}
+.chip svg{width:12px;height:12px;flex:0 0 auto}
+.chip-price{background:var(--line-2);color:var(--ink-2);border-color:var(--line);gap:7px}
+.chip-price .dollars{letter-spacing:.5px;font-weight:700;color:var(--brass)}
+.chip-price .dollars .off{color:var(--ink-3);opacity:.35}
+.chip-price .plabel{font-weight:600}
+.chip-book[data-level="none"]{background:var(--line-2);color:var(--ink-2);border-color:var(--line)}
+.chip-book[data-level="walkin"]{background:var(--ok-soft);color:var(--ok);
+  border-color:color-mix(in srgb,var(--ok) 28%,transparent)}
+.chip-book[data-level="recommended"]{background:var(--warn-soft);color:var(--warn);
+  border-color:color-mix(in srgb,var(--warn) 30%,transparent)}
+.chip-book[data-level="essential"]{background:var(--hot-soft);color:var(--hot);
+  border-color:color-mix(in srgb,var(--hot) 30%,transparent)}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0 0;padding:0;list-style:none}
+.tags li{font-size:.69rem;color:var(--ink-3);border:1px dashed var(--line);
+  border-radius:6px;padding:2px 7px}
+.desc{margin:13px 0 0;color:var(--ink-2);font-size:.9rem;line-height:1.62}
+.book-note{margin:10px 0 0;font-size:.78rem;color:var(--ink-3);display:flex;gap:7px;align-items:flex-start}
+.book-note svg{width:13px;height:13px;margin-top:3px;flex:0 0 auto;stroke:currentColor}
+
+.addr{display:flex;align-items:flex-start;gap:9px;margin:15px 0 0;padding-top:14px;
+  border-top:1px dashed var(--line);font-size:.85rem;color:var(--ink-2);text-decoration:none;
+  transition:color .2s ease}
+.addr svg{flex:0 0 auto;width:15px;height:15px;margin-top:2px;stroke:var(--brass)}
+.addr span{border-bottom:1px solid transparent;transition:border-color .2s ease}
+.addr:hover{color:var(--ink)}
+.addr:hover span{border-bottom-color:var(--brass)}
+
+.actions{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 0}
+.act{display:inline-flex;align-items:center;gap:6px;font:inherit;font-size:.79rem;font-weight:600;
+  color:var(--ink-2);background:transparent;border:1px solid var(--line);border-radius:9px;
+  padding:7px 11px;cursor:pointer;text-decoration:none;
+  transition:background .2s ease,color .2s ease,border-color .2s ease}
+.act svg{width:14px;height:14px;stroke:currentColor;flex:0 0 auto}
+.act:hover{color:var(--ink);background:var(--moss-soft);
+  border-color:color-mix(in srgb,var(--moss) 30%,var(--line))}
+.act[aria-expanded="true"]{color:#fff;background:var(--moss);border-color:var(--moss)}
+html[data-theme="dark"] .act[aria-expanded="true"]{color:#0f1411}
+.act:focus-visible,.addr:focus-visible{outline:2px solid var(--brass);outline-offset:2px;border-radius:9px}
+
+.map{margin:14px 0 0;border:1px solid var(--line);border-radius:12px;overflow:hidden;
+  height:0;opacity:0;transition:height .34s cubic-bezier(.22,.7,.3,1),opacity .24s ease,margin .34s ease}
+.map.is-open{height:210px;opacity:1}
+.map iframe{display:block;width:100%;height:210px;border:0;filter:saturate(.92)}
+html[data-theme="dark"] .map iframe{filter:invert(.9) hue-rotate(180deg) saturate(.7)}
+
+/* ---------- Footer ---------- */
+.theme-btn{position:fixed;right:18px;bottom:18px;z-index:30;width:44px;height:44px;border-radius:50%;
+  cursor:pointer;display:grid;place-items:center;font-size:1.1rem;background:var(--card);color:var(--ink);
+  border:1px solid var(--line);box-shadow:var(--shadow-lift);transition:transform .2s ease}
+.theme-btn:hover{transform:scale(1.07)}
+.theme-btn:focus-visible{outline:2px solid var(--brass);outline-offset:2px}
+footer{border-top:1px solid var(--line);padding:26px 0 40px;color:var(--ink-3);font-size:.82rem}
+footer p{margin:0 0 6px;max-width:80ch}
+@media (max-width:560px){
+  .hero-inner{padding:40px 20px 32px}
+  .grid{grid-template-columns:1fr;gap:14px}
+  .card{padding:18px}
+  .map.is-open,.map iframe{height:180px}
+}
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="hero-inner">
+    <p class="eyebrow">Savannah, Georgia &middot; Historic District</p>
+    <h1>Where to eat &amp; drink in <em>Savannah</em></h1>
+    <p class="lede">Forty hand-picked spots across the squares, River Street and Starland &mdash; with the style of food, how pricey it is next to the rest, whether you need a table booked, plus a menu link and a map for every one.</p>
+    <ul class="hero-stats">
+      <li><b>40</b> venues</li>
+      <li><b>4</b> categories</li>
+      <li><b>10</b> picks each</li>
+    </ul>
+  </div>
+</header>
+
+<nav class="tabbar" aria-label="Categories">
+  <div class="tabs" role="tablist" id="tabs"></div>
+</nav>
+
+<main class="wrap" id="panels"></main>
+
+<footer class="wrap">
+  <p><b>On price:</b> the $ rating is relative &mdash; it compares each venue against the other thirty-nine in this guide, not against restaurants nationally. <b>On reservations:</b> booking guidance reflects each spot&rsquo;s usual practice and how hard a table is to get; policies and hours change, so call ahead for the ones that matter.</p>
+  <p>Menu links open a web search for the venue &mdash; the current menu is always the one the restaurant publishes itself. Maps are Google Maps embeds; addresses open Google Maps search.</p>
+</footer>
+
+<button class="theme-btn" id="theme" type="button" aria-label="Toggle dark mode" title="Toggle dark mode">🌙</button>
+
+<script>
+/* ---------------------------------------------------------------------------
+   Savannah, GA Historic District — curated food & drink guide.
+   price: 1-4, relative to the other venues in this guide ($ - $$$$).
+   booking: none | walkin | recommended | essential
+--------------------------------------------------------------------------- */
+const GUIDE = {
+  breakfast: {
+    label: "Breakfast", icon: "☕",
+    blurb: "Stone-oven biscuits, beignets and serious espresso to start the day.",
+    spots: [
+      { name:"Toast! All Day", address:"302 E President St, Savannah, GA 31401", cuisine:"Southern breakfast & bakery", price:2, booking:"walkin", bookingNote:"Walk-in — expect a short wait at peak brunch", tags:[], highlights:"Broughton Street area favorite with cozy ambiance; famous for stone-oven baked biscuits and French toast lattes." },
+      { name:"St. Neo's Brasserie", address:"201 E Bay St, Savannah, GA 31401", cuisine:"French-Southern brasserie", price:3, booking:"recommended", bookingNote:"Reservations recommended, especially weekend brunch", tags:["Hotel dining"], highlights:"Located inside The Drayton Hotel; refined, stylish morning dining featuring Crab Cake Eggs Benedict." },
+      { name:"Huey's", address:"115 E River St, Savannah, GA 31401", cuisine:"New Orleans Creole", price:2, booking:"walkin", bookingNote:"Walk-in; riverfront tables fill first", tags:["Riverfront"], highlights:"Riverfront staple serving New Orleans-style breakfast favorites and warm, fresh beignets overlooking the water." },
+      { name:"Clary's Cafe", address:"404 Abercorn St, Savannah, GA 31401", cuisine:"Classic American diner", price:2, booking:"none", bookingNote:"No reservations — first come, first served", tags:[], highlights:"Classic, nostalgic diner featured in local lore; iconic for homemade corned beef hash and thick-cut French toast." },
+      { name:"Two Cracked Eggs Cafe", address:"202 E Bay St, Savannah, GA 31401", cuisine:"Southern comfort breakfast", price:2, booking:"none", bookingNote:"No reservations — line up early on weekends", tags:["Big portions"], highlights:"Bustling, rustic spot specializing in massive portions of peach cobbler French toast, chicken and waffles, and oversized biscuits." },
+      { name:"The Collins Quarter", address:"151 Bull St, Savannah, GA 31401", cuisine:"Australian cafe & brunch", price:3, booking:"recommended", bookingNote:"Reservations strongly recommended — one of the busiest brunches in town", tags:["Specialty coffee"], highlights:"Vibrant Australian-inspired cafe renowned for premier specialty espresso drinks, avocado smash, and shakshuka." },
+      { name:"Maple Street Biscuit Company", address:"220 W Broughton St, Savannah, GA 31401", cuisine:"Biscuits & Southern comfort", price:1, booking:"none", bookingNote:"Counter service, no reservations", tags:["Counter service"], highlights:"Casual comfort food hub famous for flaky, scratch-made biscuit sandwiches, apple butter, and sausage gravy." },
+      { name:"J. Christopher's", address:"122 E Liberty St, Savannah, GA 31401", cuisine:"American breakfast cafe", price:2, booking:"walkin", bookingNote:"Walk-in; turnover is quick", tags:[], highlights:"Reliable daytime cafe serving traditional skillet breakfasts, specialty omelets, and sweet griddle classics." },
+      { name:"Narobia's Grits & Gravy", address:"2019 Habersham St, Savannah, GA 31401", cuisine:"Soul food & Southern", price:1, booking:"none", bookingNote:"No reservations — small room, steady line", tags:["Local institution"], highlights:"Renowned local institution serving unpretentious, authentic Southern breakfasts with legendary smother-gravy and grits." },
+      { name:"B. Matthew's Eatery", address:"325 E Bay St, Savannah, GA 31401", cuisine:"American & Southern", price:2, booking:"recommended", bookingNote:"Reservations recommended for weekend brunch", tags:["Historic building"], highlights:"18th-century brick venue serving polished classic American breakfast and Southern staples steps from River Street." }
+    ]
+  },
+  lunch: {
+    label: "Lunch", icon: "\u{1F96A}",
+    blurb: "Midday institutions, food-truck yards and legendary sandwiches.",
+    spots: [
+      { name:"Crystal Beer Parlor", address:"301 W Jones St, Savannah, GA 31401", cuisine:"American pub & burgers", price:2, booking:"walkin", bookingNote:"Walk-in; call ahead for larger groups", tags:["Former speakeasy"], highlights:"Century-old neighborhood institution and former speakeasy famous for giant burgers, crab dip, and craft beers." },
+      { name:"Mrs. Wilkes Dining Room", address:"107 W Jones St, Savannah, GA 31401", cuisine:"Southern family-style", price:2, booking:"none", bookingNote:"No reservations — queue on Jones Street before opening", tags:["Cash only","Lunch only"], highlights:"Iconic family-style communal dining on Jones Street; fried chicken, sweet potato soufflé, and 15+ side dishes (cash only)." },
+      { name:"Vinnie Van GoGo's", address:"317 W Bryan St, Savannah, GA 31401", cuisine:"Neapolitan pizza", price:1, booking:"none", bookingNote:"Walk-in only, no reservations", tags:["Cash only","Patio"], highlights:"Heart of City Market; giant Neapolitan thin-crust slices served on casual patio tables (cash only)." },
+      { name:"The Grey Market", address:"109 Jefferson St, Savannah, GA 31401", cuisine:"Southern lunch counter & bodega", price:2, booking:"none", bookingNote:"Counter service, no reservations", tags:["Grab and go"], highlights:"Modern reimagining of the classic NYC counter bodega crossed with Southern luncheonette flavors." },
+      { name:"Zunzi's", address:"236 Drayton St, Savannah, GA 31401", cuisine:"South African sandwiches", price:1, booking:"none", bookingNote:"Order at the window, no reservations", tags:["Takeaway"], highlights:"South African-inspired sandwiches stacked with chicken, sausage, and signature sauces like “SHIT” sauce." },
+      { name:"Starland Yard", address:"2411 DeSoto Ave, Savannah, GA 31401", cuisine:"Food trucks & brick-oven pizza", price:2, booking:"none", bookingNote:"Open-air, no reservations", tags:["Dog friendly","Outdoor"], highlights:"Open-air food truck park built from shipping containers with rotating chef trucks, brick-oven pizza, and cold draft beers." },
+      { name:"Spanky's Pizza Galley & Saloon", address:"317 E River St, Savannah, GA 31401", cuisine:"Pizza & tavern fare", price:2, booking:"walkin", bookingNote:"Walk-in", tags:["Riverfront"], highlights:"Legendary tavern on River Street credited as the birthplace of the chicken finger, served with honey-horseradish dip." },
+      { name:"Treylor Park", address:"115 E Bay St, Savannah, GA 31401", cuisine:"Creative American pub", price:2, booking:"recommended", bookingNote:"Reservations recommended on weekends", tags:["Patio"], highlights:"Playful vintage diner serving indulgent, creative pub fare like PB&J chicken wings and waffle-fry nachos." },
+      { name:"The Vault Kitchen & Market", address:"2112 Bull St, Savannah, GA 31401", cuisine:"Asian fusion & sushi", price:3, booking:"recommended", bookingNote:"Reservations recommended for dinner service", tags:["Sushi"], highlights:"Mid-century bank transformed into an airy bistro specializing in handcrafted sushi, dumplings, and Asian-fusion bowls." },
+      { name:"Tequila's Town Mexican Restaurant", address:"109 Whitaker St, Savannah, GA 31401", cuisine:"Regional Mexican", price:2, booking:"walkin", bookingNote:"Walk-in; reservations taken for groups", tags:["Margaritas"], highlights:"Authentic regional Mexican specialties, handmade corn tortillas, and fresh lime agave margaritas." }
+    ]
+  },
+  dinner: {
+    label: "Dinner", icon: "\u{1F37D}️",
+    blurb: "Georgian mansions, cotton warehouses and candle-lit cellar rooms.",
+    spots: [
+      { name:"The Olde Pink House", address:"23 Abercorn St, Savannah, GA 31401", cuisine:"Southern fine dining", price:4, booking:"essential", bookingNote:"Reservations essential — book several weeks ahead", tags:["Historic mansion"], highlights:"Quintessential Savannah dining in an elegant 18th-century Georgian mansion; famous for crispy flounder and pecan-crusted chicken." },
+      { name:"Vic's on the River", address:"15 E River St, Savannah, GA 31401", cuisine:"Lowcountry Southern", price:3, booking:"recommended", bookingNote:"Reservations recommended — ask for a river-view table", tags:["Live piano","River views"], highlights:"Overlooks the river from a 19th-century cotton warehouse with live piano music, pecan flounder, and she-crab soup." },
+      { name:"Common Thread", address:"122 E 37th St, Savannah, GA 31401", cuisine:"Farm-to-table New American", price:4, booking:"essential", bookingNote:"Reservations essential — limited seatings, tasting format", tags:["Tasting menu","Victorian home"], highlights:"Historic Victorian home offering seasonal farm-to-table tasting courses and locally sourced culinary craft." },
+      { name:"Local 11ten", address:"1110 Bull St, Savannah, GA 31401", cuisine:"New American coastal", price:4, booking:"recommended", bookingNote:"Reservations recommended; rooftop lounge is walk-in", tags:["Rooftop lounge"], highlights:"Restored 1950s bank building south of Forsyth Park; sophisticated New American coastal dishes and rooftop lounge." },
+      { name:"The Public Kitchen and Bar", address:"1 W Liberty St, Savannah, GA 31401", cuisine:"New American", price:3, booking:"recommended", bookingNote:"Reservations recommended for dinner", tags:["Rooftop seating"], highlights:"Sleek mid-century corner space serving farm-fresh steaks, seasonal burgers, craft cocktails, and rooftop seating." },
+      { name:"The Cotton Exchange Tavern", address:"201 E River St, Savannah, GA 31401", cuisine:"Seafood & steak tavern", price:3, booking:"walkin", bookingNote:"Walk-in friendly; reservations taken for groups", tags:["Riverfront","Historic warehouse"], highlights:"Historic portside tavern set within 200-year-old cotton warehouses; renowned for local wild Georgia shrimp and steaks." },
+      { name:"1540 Room", address:"15 E Liberty St, Savannah, GA 31401", cuisine:"Lowcountry fine dining", price:4, booking:"essential", bookingNote:"Reservations essential — small chef-driven dining room", tags:["Hotel dining","Chef's menu"], highlights:"Upscale chef-driven restaurant inside The DeSoto Hotel showcasing refined regional lowcountry game and seafood." },
+      { name:"Belford's Savannah Seafood & Steaks", address:"315 W St Julian St, Savannah, GA 31401", cuisine:"Seafood & steakhouse", price:3, booking:"recommended", bookingNote:"Reservations recommended, patio seats go fast", tags:["City Market","Patio"], highlights:"Historic 1902 City Market structure known for aged steaks, fresh seafood platters, and patio seating." },
+      { name:"Alligator Soul", address:"114 Barnard St, Savannah, GA 31401", cuisine:"Exotic game & Southern seafood", price:4, booking:"essential", bookingNote:"Reservations essential — intimate cellar, few tables", tags:["Underground"], highlights:"Intimate underground cellar restaurant specializing in sustainable exotic game meats and deep southern seafood dishes." },
+      { name:"Chive Sea Bar and Lounge", address:"4 W Broughton St, Savannah, GA 31401", cuisine:"Asian-Southern coastal seafood", price:3, booking:"recommended", bookingNote:"Reservations recommended for dinner and late cocktails", tags:["Speakeasy style"], highlights:"Glamorous 1920s speakeasy aesthetic offering elevated Asian-Southern coastal seafood and vintage cocktails." }
+    ]
+  },
+  drinks: {
+    label: "Drinks", icon: "\u{1F378}",
+    blurb: "Rooftops above the river, speakeasies below the sidewalk.",
+    spots: [
+      { name:"Myrtle & Rose Rooftop Bar", address:"500 W River St, Savannah, GA 31401", cuisine:"Rooftop cocktail bar", price:3, booking:"recommended", bookingNote:"Reservations recommended at sunset", tags:["Rooftop","River views"], highlights:"Plant Tower rooftop lounge at the JW Marriott; romantic floral decor and sweeping views of the river and bridge." },
+      { name:"Rocks on the Roof", address:"102 W Bay St, Savannah, GA 31401", cuisine:"Hotel rooftop bar", price:2, booking:"walkin", bookingNote:"Walk-in; expect a queue for the elevator on weekends", tags:["Rooftop","Live music"], highlights:"Swanky Bohemian Hotel rooftop terrace featuring fire pits, signature cocktails, and live riverfront music." },
+      { name:"Bar Julian", address:"201 Port St, Savannah, GA 31401", cuisine:"Rooftop cocktails & small plates", price:3, booking:"recommended", bookingNote:"Reservations recommended — sunset slots book out", tags:["Rooftop","Highest views"], highlights:"15th-floor aerie at the Thompson Savannah; tallest rooftop bar in town offering panoramic sunset and harbor vistas." },
+      { name:"Riverside Biergarten", address:"500 W River St, Savannah, GA 31401", cuisine:"German beer garden", price:2, booking:"none", bookingNote:"Open-air seating, no reservations", tags:["Outdoor","Draft beer"], highlights:"Casual open-air seating right along River Street with imported Bavarian draft beers and giant warm pretzels." },
+      { name:"Electric Moon Skytop Lounge", address:"500 W River St, Savannah, GA 31401", cuisine:"Rooftop party lounge", price:2, booking:"walkin", bookingNote:"Walk-in; cabanas can be reserved", tags:["Rooftop","DJ sets"], highlights:"High-energy rooftop lounge with slides, neon lighting, lawn games, and lively DJ sets overlooking the shipping channel." },
+      { name:"Top Deck", address:"125 W River St, Savannah, GA 31401", cuisine:"Nautical rooftop bar", price:2, booking:"walkin", bookingNote:"Walk-in; small deck, arrive early", tags:["Rooftop","River views"], highlights:"Crisp nautical-inspired rooftop bar atop the Cotton Sail Hotel; prime vantage point for passing riverboats." },
+      { name:"Wet Willie's", address:"101 E River St, Savannah, GA 31401", cuisine:"Frozen daiquiri bar", price:1, booking:"none", bookingNote:"No reservations — order at the counter", tags:["To-go cups"], highlights:"Famous stop for boozy, colorful slushies and frozen daiquiris in grab-and-go cups allowed on Savannah sidewalks." },
+      { name:"Artillery Bar", address:"307 Bull St, Savannah, GA 31401", cuisine:"Craft cocktails & Champagne", price:4, booking:"walkin", bookingNote:"Walk-in only — dress code enforced, no phones at the bar", tags:["Dress code","Historic armory"], highlights:"Opulent, restored 19th-century armory building serving precision craft cocktails and Champagne in an intimate setting." },
+      { name:"Alley Cat Lounge", address:"207 W Broughton St, Savannah, GA 31401", cuisine:"Speakeasy cocktail bar", price:2, booking:"none", bookingNote:"Walk-in only, no reservations", tags:["Speakeasy","100+ cocktails"], highlights:"Sprawling speakeasy basement bar featuring an extensive 100+ cocktail menu printed in a vintage newspaper format." },
+      { name:"Peacock Lounge", address:"37 Whitaker St, Savannah, GA 31401", cuisine:"Intimate cocktail lounge", price:3, booking:"walkin", bookingNote:"Walk-in; small room fills quickly", tags:["Basement","Small bites"], highlights:"Velvet-draped basement hideaway serving artisanal cocktails and small bites in an intimate, mood-lit atmosphere." }
+    ]
+  }
+};
+/* ------------------------------------------------------------------ app */
+const PRICE = [
+  null,
+  { label: "Budget",   note: "least expensive tier in this guide" },
+  { label: "Moderate", note: "middle of the pack" },
+  { label: "Upscale",  note: "pricier than most here" },
+  { label: "Splurge",  note: "most expensive tier in this guide" }
+];
+const BOOK = {
+  none:        { short: "No reservations", icon: "walk" },
+  walkin:      { short: "Walk-in ok",      icon: "walk" },
+  recommended: { short: "Book ahead",      icon: "cal"  },
+  essential:   { short: "Booking essential", icon: "cal" }
+};
+const ICON = {
+  pin:  '<svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>',
+  map:  '<svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m9 4 6 2 6-2v14l-6 2-6-2-6 2V6l6-2Z"/><path d="M9 4v14M15 6v14"/></svg>',
+  menu: '<svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>',
+  cal:  '<svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 3v4M16 3v4M3 10h18"/></svg>',
+  walk: '<svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="13" cy="4" r="2"/><path d="m11 21 2-6-3-3 1-5 3 4 3 1"/><path d="m10 12-2 9"/></svg>'
+};
+
+const esc = s => String(s).replace(/[&<>"']/g, c =>
+  ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;" }[c]));
+const q = spot => encodeURIComponent(spot.name + ", " + spot.address);
+const mapsUrl  = s => "https://www.google.com/maps/search/?api=1&query=" + q(s);
+const menuUrl  = s => "https://www.google.com/search?q=" + encodeURIComponent(s.name + " " + s.address + " menu");
+const embedUrl = s => "https://maps.google.com/maps?q=" + q(s) + "&z=16&output=embed";
+
+function priceChip(price) {
+  const p = PRICE[price];
+  const marks = [1,2,3,4].map(i =>
+    `<span class="${i <= price ? "on" : "off"}">$</span>`).join("");
+  return `<span class="chip chip-price" title="${esc(p.label)} — ${esc(p.note)}">` +
+    `<span class="dollars" aria-hidden="true">${marks}</span>` +
+    `<span class="plabel">${esc(p.label)}</span></span>`;
+}
+
+function card(spot, i) {
+  const b = BOOK[spot.booking];
+  const tags = (spot.tags || []).map(t => `<li>${esc(t)}</li>`).join("");
+  return `<li class="card${i < 3 ? " is-top" : ""}">
+    <div class="card-top">
+      <div class="rank" aria-hidden="true">${i + 1}</div>
+      <div>
+        <p class="badge"><span class="dot"></span>${i < 3 ? "Top pick" : "Rank"} #${i + 1}</p>
+        <h3 class="name">${esc(spot.name)}</h3>
+        <p class="cuisine">${esc(spot.cuisine)}</p>
+      </div>
+    </div>
+
+    <div class="meta">
+      ${priceChip(spot.price)}
+      <span class="chip chip-book" data-level="${spot.booking}">${ICON[b.icon]}${esc(b.short)}</span>
+    </div>
+    ${tags ? `<ul class="tags">${tags}</ul>` : ""}
+
+    <p class="desc">${esc(spot.highlights)}</p>
+    <p class="book-note">${ICON[b.icon]}<span>${esc(spot.bookingNote)}</span></p>
+
+    <a class="addr" href="${mapsUrl(spot)}" target="_blank" rel="noopener noreferrer">
+      ${ICON.pin}<span>${esc(spot.address)}</span>
+    </a>
+
+    <div class="actions">
+      <button class="act js-map" type="button" aria-expanded="false"
+              data-src="${embedUrl(spot)}" data-name="${esc(spot.name)}">
+        ${ICON.map}Show map
+      </button>
+      <a class="act" href="${menuUrl(spot)}" target="_blank" rel="noopener noreferrer">
+        ${ICON.menu}Menu
+      </a>
+    </div>
+    <div class="map" hidden></div>
+  </li>`;
+}
+
+const tabsEl = document.getElementById("tabs");
+const panelsEl = document.getElementById("panels");
+const keys = Object.keys(GUIDE);
+
+tabsEl.innerHTML = keys.map((k, i) => {
+  const c = GUIDE[k];
+  return `<button class="tab" role="tab" type="button" id="tab-${k}"
+    aria-controls="panel-${k}" aria-selected="${i === 0}" tabindex="${i === 0 ? 0 : -1}">
+    <span class="ico" aria-hidden="true">${c.icon}</span>${esc(c.label)}
+    <span class="n">${c.spots.length}</span></button>`;
+}).join("");
+
+panelsEl.innerHTML = keys.map((k, i) => {
+  const c = GUIDE[k];
+  return `<section class="panel${i === 0 ? " is-active" : ""}" id="panel-${k}"
+      role="tabpanel" aria-labelledby="tab-${k}"${i === 0 ? "" : " hidden"}>
+    <div class="panel-head">
+      <h2>${esc(c.label)} &mdash; the ten to know</h2>
+      <p>${esc(c.blurb)}</p>
+    </div>
+    <div class="legend">
+      <span><b>Price</b> $ Budget &middot; $$ Moderate &middot; $$$ Upscale &middot; $$$$ Splurge — relative to the other venues here</span>
+      <span><b>Booking</b> No reservations &middot; Walk-in ok &middot; Book ahead &middot; Booking essential</span>
+    </div>
+    <ul class="grid">${c.spots.map(card).join("")}</ul>
+  </section>`;
+}).join("");
+
+/* --- tab switching --- */
+const tabs = [...tabsEl.querySelectorAll(".tab")];
+
+function select(key, focus) {
+  keys.forEach(k => {
+    const on = k === key;
+    const tab = document.getElementById("tab-" + k);
+    const panel = document.getElementById("panel-" + k);
+    tab.setAttribute("aria-selected", String(on));
+    tab.tabIndex = on ? 0 : -1;
+    panel.hidden = !on;
+    panel.classList.toggle("is-active", on);
+  });
+  const active = document.getElementById("tab-" + key);
+  if (focus) active.focus();
+  const strip = tabsEl.getBoundingClientRect();
+  const box = active.getBoundingClientRect();
+  if (box.left < strip.left || box.right > strip.right) {
+    active.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
+  }
+  if (location.hash.slice(1) !== key) history.replaceState(null, "", "#" + key);
+}
+
+tabsEl.addEventListener("click", e => {
+  const tab = e.target.closest(".tab");
+  if (tab) select(tab.id.replace("tab-", ""));
+});
+
+tabsEl.addEventListener("keydown", e => {
+  const dir = { ArrowRight: 1, ArrowLeft: -1, Home: "first", End: "last" }[e.key];
+  if (dir === undefined) return;
+  e.preventDefault();
+  const i = tabs.findIndex(t => t.getAttribute("aria-selected") === "true");
+  const next = dir === "first" ? 0
+    : dir === "last" ? keys.length - 1
+    : (i + dir + keys.length) % keys.length;
+  select(keys[next], true);
+});
+
+/* --- lazy map embeds --- */
+panelsEl.addEventListener("click", e => {
+  const btn = e.target.closest(".js-map");
+  if (!btn) return;
+  const box = btn.closest(".card").querySelector(".map");
+  const open = btn.getAttribute("aria-expanded") === "true";
+
+  if (open) {
+    btn.setAttribute("aria-expanded", "false");
+    btn.innerHTML = ICON.map + "Show map";
+    box.classList.remove("is-open");
+    setTimeout(() => { if (btn.getAttribute("aria-expanded") === "false") box.hidden = true; }, 340);
+    return;
+  }
+  if (!box.firstChild) {
+    const frame = document.createElement("iframe");
+    frame.src = btn.dataset.src;
+    frame.loading = "lazy";
+    frame.title = "Map of " + btn.dataset.name;
+    frame.referrerPolicy = "no-referrer-when-downgrade";
+    frame.setAttribute("allowfullscreen", "");
+    box.appendChild(frame);
+  }
+  box.hidden = false;
+  requestAnimationFrame(() => box.classList.add("is-open"));
+  btn.setAttribute("aria-expanded", "true");
+  btn.innerHTML = ICON.map + "Hide map";
+});
+
+/* --- theme --- */
+const root = document.documentElement;
+const themeBtn = document.getElementById("theme");
+const store = {
+  get(k)   { try { return localStorage.getItem(k); } catch { return null; } },
+  set(k,v) { try { localStorage.setItem(k, v); } catch {} }
+};
+function paint(mode) {
+  root.dataset.theme = mode;
+  themeBtn.textContent = mode === "dark" ? "☀️" : "🌙";
+  themeBtn.setAttribute("aria-label",
+    mode === "dark" ? "Switch to light mode" : "Switch to dark mode");
+}
+paint(store.get("theme")
+  || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"));
+themeBtn.addEventListener("click", () => {
+  const next = root.dataset.theme === "dark" ? "light" : "dark";
+  paint(next);
+  store.set("theme", next);
+});
+
+/* --- deep link --- */
+const initial = location.hash.slice(1);
+if (keys.includes(initial)) select(initial);
+addEventListener("hashchange", () => {
+  const k = location.hash.slice(1);
+  if (keys.includes(k)) select(k);
+});
+</script>
+</body>
+</html>
