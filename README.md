@@ -1,8 +1,12 @@
 # Savannah Food Guide
 
-An interactive, single-page guide to forty hand-picked places to eat and drink in
-Savannah, Georgia's Historic District — ten each for **Breakfast**, **Lunch**,
-**Dinner** and **Drinks**.
+I built this for my wife for our trip to Savannah, Georgia. A list in a notes
+app would have done the job, but where's the fun in that?
+
+So instead it's an interactive, single-page guide to forty hand-picked places to
+eat and drink in Savannah's Historic District — ten each for **Breakfast**,
+**Lunch**, **Dinner** and **Drinks**. It's still up because it's still useful, so
+if you're heading to Savannah, help yourself.
 
 **Live site:** https://stphnwlsh.github.io/restaurants/
 
