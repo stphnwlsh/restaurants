@@ -8,7 +8,7 @@ eat and drink in Savannah's Historic District — ten each for **Breakfast**,
 **Lunch**, **Dinner** and **Drinks**. It's still up because it's still useful, so
 if you're heading to Savannah, help yourself.
 
-**Live site:** https://stphnwlsh.github.io/restaurants/
+**Live site:** https://stphnwlsh.dev/restaurants/
 
 ## What's on each card
 
